@@ -117,6 +117,7 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
+
         for (HashMap<String, String> jobs : JobData.findAll()){
             for (String key : jobs.keySet()) {
                 String value = jobs.get(key);
