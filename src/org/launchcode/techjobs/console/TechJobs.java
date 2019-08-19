@@ -1,8 +1,11 @@
 package org.launchcode.techjobs.console;
 
+import javax.swing.plaf.basic.BasicScrollPaneUI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import static org.launchcode.techjobs.console.JobData.findByColumnAndValue;
 
 /**
  * Created by LaunchCode
@@ -61,9 +64,12 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
-                } else {
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    System.out.println(searchTerm);
+                }
+                else {
+
+                    printJobs(findByColumnAndValue(searchField, searchTerm));
+
                 }
             }
         }
@@ -111,6 +117,27 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+        for (HashMap<String, String> jobs : JobData.findAll()){
+            for (String key : jobs.keySet()) {
+                String value = jobs.get(key);
+                if (key.equals("position type")){
+                    System.out.println("****");
+                }
+                System.out.println(key + ": " + value);
+                if (key.equals("core competency")){
+                    System.out.println("****\n");
+
+                }
+
+
+
+        }
+
+
+
+            }
+
+        }
+
     }
-}
+
