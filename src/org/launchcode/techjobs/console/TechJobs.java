@@ -67,8 +67,8 @@ public class TechJobs {
 
                         if (searchField.equals("all")) {
 
-                            Collection<String> choice = columnChoices.keySet();
-                            printJobs(JobData.findByValue(choice, searcher));
+
+                            printJobs(JobData.findByValue(searcher));
 
 
                         } else {

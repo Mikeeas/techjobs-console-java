@@ -95,14 +95,14 @@ public class JobData {
     }
 
 
-    public static ArrayList<HashMap<String, String>> findByValue(Collection<String> column, String value) {
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
         loadData();
 
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-            for (String choice : column) {
+            for (String choice : row.keySet()) {
 
                 String aValue = row.get(choice);
 
@@ -112,7 +112,6 @@ public class JobData {
                     if(bValue.contains(value)){
 
                         jobs.add(row);
-                        break;
 
 
                     }
@@ -123,10 +122,6 @@ public class JobData {
 
 
             }
-
-
-
-
 
 
 
