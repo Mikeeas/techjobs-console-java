@@ -1,11 +1,11 @@
 package org.launchcode.techjobs.console;
 
-import javax.swing.plaf.basic.BasicScrollPaneUI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import sun.awt.SunHints;
+import sun.tools.jps.Jps;
 
-import static org.launchcode.techjobs.console.JobData.findByColumnAndValue;
+import javax.swing.plaf.basic.BasicScrollPaneUI;
+import java.util.*;
+
 
 /**
  * Created by LaunchCode
@@ -54,26 +54,31 @@ public class TechJobs {
                     }
                 }
 
-            } else { // choice is "search"
 
-                // How does the user want to search (e.g. by skill or employer)
-                String searchField = getUserSelection("Search by:", columnChoices);
+            }else{ // choice is "search"
 
-                // What is their search term?
-                System.out.println("\nSearch term: ");
-                String searchTerm = in.nextLine();
+                        // How does the user want to search (e.g. by skill or employer)
+                        String searchField = getUserSelection("Search by:", columnChoices);
 
-                if (searchField.equals("all")) {
-                    System.out.println(searchTerm);
-                }
-                else {
+                        // What is their search term?
+                        System.out.println("\nSearch term: ");
+                        String searchTerm = in.nextLine();
+                        String searcher = searchTerm.toLowerCase();
 
-                    printJobs(findByColumnAndValue(searchField, searchTerm));
+                        if (searchField.equals("all")) {
 
+                            Collection<String> choice = columnChoices.keySet();
+                            printJobs(JobData.findByValue(choice, searcher));
+
+
+                        } else {
+
+                            printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+
+                        }
+                    }
                 }
             }
-        }
-    }
 
     // ﻿Returns the key of the selected item from the choices Dictionary
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
@@ -118,27 +123,30 @@ public class TechJobs {
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
 
-        for (HashMap<String, String> jobs : JobData.findAll()){
-            for (String key : jobs.keySet()) {
-                String value = jobs.get(key);
-                if (key.equals("position type")){
-                    System.out.println("****");
-                }
-                System.out.println(key + ": " + value);
-                if (key.equals("core competency")){
-                    System.out.println("****\n");
-
-                }
-
-
-
-        }
-
-
-
+            if (someJobs.isEmpty()) {
+                System.out.println("No Results Found");
             }
 
+            for (HashMap<String, String> job : someJobs) {
+                for (String key : job.keySet()) {
+                    String value = job.get(key);
+                    if (key.equals("position type")) {
+                        System.out.println("****");
+                    }
+                    System.out.println(key + ": " + value);
+                    if (key.equals("core competency")) {
+                        System.out.println("****\n");
+                    }
+
+
+                }
+
+            }
         }
 
+
     }
+
+
+
 
